@@ -1,22 +1,24 @@
 const addTasks = document.querySelector(".tasks"),
   inputTask = addTasks.querySelector("input"),
-  pendingList = document.querySelector(".pendinglist");
+  pendingList = document.querySelector(".pendinglist"),
+  finishedList = document.querySelector(".finishedlist");
 
-const TASK_LS = "Task";
-let Task = [];
+const TASK_LS = "pendingTasks";
+let pendingTasks = [];
+let finishedTasks = [];
 
 function saveTask() {
-  localStorage.setItem(TASK_LS, JSON.stringify(Task));
+  localStorage.setItem(TASK_LS, JSON.stringify(pendingTasks));
 }
 
 function deleteTask(event) {
   const btn = event.target;
   const li = btn.parentNode;
   pendingList.removeChild(li);
-  const cleanTask = Task.filter(function (Tasks) {
+  const cleanTask = pendingTasks.filter(function (Tasks) {
     return Tasks.id !== parseInt(li.id);
   });
-  Task = cleanTask;
+  pendingTasks = cleanTask;
   saveTask();
 }
 
@@ -26,7 +28,7 @@ function addTask(text) {
   delBtn.innerText = "❌";
   delBtn.addEventListener("click", deleteTask);
   const span = document.createElement("span");
-  const newId = Task.length + 1;
+  const newId = pendingTasks.length + 1;
   span.innerText = text;
   li.appendChild(span);
   li.appendChild(delBtn);
@@ -36,7 +38,7 @@ function addTask(text) {
     text: text,
     id: newId,
   };
-  Task.push(TaskObj);
+  pendingTasks.push(TaskObj);
   saveTask();
 }
 
