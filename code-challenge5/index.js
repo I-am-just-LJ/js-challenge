@@ -1,6 +1,6 @@
-const addTasks = document.querySelector(".addTask"),
+const addTasks = document.querySelector(".tasks"),
   inputTask = addTasks.querySelector("input"),
-  pendingList = document.querySelector(".pendingList");
+  pendingList = document.querySelector(".pendinglist");
 
 const TASK_LS = "Task";
 let Task = [];
@@ -26,7 +26,7 @@ function addTask(text) {
   delBtn.innerText = "❌";
   delBtn.addEventListener("click", deleteTask);
   const span = document.createElement("span");
-  const newId = "inputTask.value";
+  const newId = Task.length + 1;
   span.innerText = text;
   li.appendChild(span);
   li.appendChild(delBtn);
